@@ -64,6 +64,7 @@ class RevocationEndpoint(BaseEndpoint):
         try:
             self.validate_revocation_request(request)
             log.debug('Token revocation valid for %r.', request)
+        except InvalidRevocation
         except OAuth2Error as e:
             log.debug('Client error during validation of %r. %r.', request, e)
             response_body = e.json
@@ -123,6 +124,7 @@ class RevocationEndpoint(BaseEndpoint):
         if not self.request_validator.authenticate_client(request):
             raise InvalidClientError(request=request)
 
-        if (request.token_type_hint and
-                request.token_type_hint not in self.supported_token_types):
+        if (request.token_type_hint and 
+            request.token_type_hint in self.valid_token_types and
+            request.token_type_hint not in self.supported_token_types):
             raise UnsupportedTokenTypeError(request=request)
