@@ -64,7 +64,6 @@ class RevocationEndpoint(BaseEndpoint):
         try:
             self.validate_revocation_request(request)
             log.debug('Token revocation valid for %r.', request)
-        except InvalidRevocation
         except OAuth2Error as e:
             log.debug('Client error during validation of %r. %r.', request, e)
             response_body = e.json
